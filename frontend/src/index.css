@@ -1,0 +1,131 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ─── Base ────────────────────────────────────────── */
+@layer base {
+  body {
+    @apply bg-slate-100 text-slate-800 font-sans transition-colors duration-300 antialiased;
+    font-family: 'Outfit', sans-serif;
+  }
+}
+
+/* Dark mode body override (plain CSS — @apply doesn't support dark: variants) */
+.dark body {
+  background-color: #08101d;
+  color: #cbd5e1;
+}
+
+/* Selection */
+::selection { background-color: #6366f1; color: white; }
+
+/* ─── Glass Panel ─────────────────────────────────── */
+.glass-panel {
+  background: rgba(255,255,255,0.80);
+  border: 1px solid rgba(226,232,240,0.60);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+}
+.dark .glass-panel {
+  background: rgba(13,26,46,0.70);
+  border: 1px solid rgba(255,255,255,0.05);
+}
+
+/* ─── KPI / Stat Cards ────────────────────────────── */
+.kpi-card {
+  padding: 1.5rem;
+  border-radius: 1rem;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+.kpi-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 20px 40px rgba(99,102,241,0.12);
+}
+.dark .kpi-card:hover {
+  box-shadow: 0 20px 40px rgba(99,102,241,0.20);
+}
+
+/* ─── Buttons ─────────────────────────────────────── */
+.custom-button {
+  @apply px-4 py-2.5 rounded-xl font-semibold transition-all duration-200 flex items-center justify-center gap-2 text-sm active:scale-95;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.10);
+}
+.custom-button:hover {
+  box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+}
+
+.primary-btn {
+  @apply custom-button text-white;
+  background: linear-gradient(135deg, #6366f1 0%, #3b82f6 100%);
+  box-shadow: 0 4px 16px rgba(99,102,241,0.35);
+}
+.primary-btn:hover {
+  background: linear-gradient(135deg, #4f46e5 0%, #2563eb 100%);
+  box-shadow: 0 6px 24px rgba(99,102,241,0.45);
+}
+
+.secondary-btn {
+  @apply custom-button;
+  background: rgba(226,232,240,0.80);
+  color: #334155;
+}
+.secondary-btn:hover { background: rgba(203,213,225,0.80); }
+.dark .secondary-btn { background: rgba(26,39,68,0.80); color: #cbd5e1; }
+.dark .secondary-btn:hover { background: rgba(31,48,87,0.80); }
+
+/* ─── Input Fields ────────────────────────────────── */
+.input-field {
+  @apply w-full px-4 py-2.5 rounded-xl border text-sm transition-all duration-200;
+  border-color: #e2e8f0;
+  background: rgba(255,255,255,0.60);
+  color: #1e293b;
+}
+.input-field:focus {
+  outline: none;
+  border-color: #6366f1;
+  box-shadow: 0 0 0 3px rgba(99,102,241,0.15);
+}
+.input-field::placeholder { color: #94a3b8; }
+.dark .input-field {
+  border-color: rgba(255,255,255,0.08);
+  background: rgba(13,26,46,0.60);
+  color: #fff;
+}
+.dark .input-field:focus {
+  border-color: rgba(99,102,241,0.60);
+  box-shadow: 0 0 0 3px rgba(99,102,241,0.12);
+}
+
+/* ─── Status Badges ───────────────────────────────── */
+.badge {
+  @apply inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[11px] font-bold tracking-wide;
+}
+.badge-green { @apply badge bg-emerald-100 text-emerald-700; }
+.dark .badge-green { background: rgba(6,78,59,0.35); color: #34d399; }
+.badge-amber { @apply badge bg-amber-100 text-amber-700; }
+.dark .badge-amber { background: rgba(120,53,15,0.35); color: #fbbf24; }
+.badge-red   { @apply badge bg-red-100 text-red-700; }
+.dark .badge-red   { background: rgba(127,29,29,0.35); color: #f87171; }
+.badge-blue  { @apply badge bg-blue-100 text-blue-700; }
+.dark .badge-blue  { background: rgba(30,58,138,0.35); color: #60a5fa; }
+.badge-slate { @apply badge bg-slate-100 text-slate-500; }
+.dark .badge-slate { background: rgba(51,65,85,0.50);  color: #94a3b8; }
+
+/* ─── Animations ──────────────────────────────────── */
+@keyframes fadeIn  { from { opacity:0 } to { opacity:1 } }
+@keyframes slideUp { from { opacity:0; transform:translateY(16px) } to { opacity:1; transform:translateY(0) } }
+@keyframes shake   { 0%,100%{transform:translateX(0)} 20%,60%{transform:translateX(-5px)} 40%,80%{transform:translateX(5px)} }
+
+.animate-fade-in  { animation: fadeIn  0.4s ease-out both; }
+.animate-slide-up { animation: slideUp 0.4s ease-out both; }
+.animate-shake    { animation: shake   0.4s ease-in-out;   }
+
+/* ─── Scrollbars ──────────────────────────────────── */
+::-webkit-scrollbar       { width:5px; height:5px; }
+::-webkit-scrollbar-track { background:transparent; }
+::-webkit-scrollbar-thumb { background:rgba(99,102,241,0.25); border-radius:99px; }
+::-webkit-scrollbar-thumb:hover { background:rgba(99,102,241,0.50); }

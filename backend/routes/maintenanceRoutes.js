@@ -5,11 +5,11 @@ const { protect, authorize } = require('../middleware/auth');
 
 router.route('/')
   .get(protect, getMaintenanceLogs)
-  .post(protect, authorize('Fleet Manager'), createMaintenanceLog);
+  .post(protect, authorize('Fleet Manager', 'Admin'), createMaintenanceLog);
 
 router.route('/:id')
   .get(protect, getMaintenanceById)
-  .put(protect, authorize('Fleet Manager'), updateMaintenanceLog)
-  .delete(protect, authorize('Fleet Manager'), deleteMaintenanceLog);
+  .put(protect, authorize('Fleet Manager', 'Admin'), updateMaintenanceLog)
+  .delete(protect, authorize('Fleet Manager', 'Admin'), deleteMaintenanceLog);
 
 module.exports = router;

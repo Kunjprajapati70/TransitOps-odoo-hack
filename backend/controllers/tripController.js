@@ -243,17 +243,15 @@ exports.updateTrip = async (req, res) => {
             vehicle: trip.vehicle,
             trip: trip._id,
             quantity: trip.fuelConsumed,
-            cost: trip.fuelConsumed * 1.5, // Mock fuel price of $1.50 per Litre
+            cost: parseFloat((trip.fuelConsumed * 1.35).toFixed(2)), // ~$1.35/litre average
             date: new Date()
           });
         }
       } 
       else if (newStatus === 'Cancelled') {
-        // Transitioning to Cancelled
-        vehicle.status = 'Available';
-        driver.status = 'Available';
-        await vehicle.save();
-        await driver.save();
+        // Transitioning to Cancelled — revert both vehicle and driver
+        if (vehicle) { vehicle.status = 'Available'; await vehicle.save(); }
+        if (driver) { driver.status = 'Available'; await driver.save(); }
       }
     }
 
